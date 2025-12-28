@@ -1,0 +1,36 @@
+---
+import { siteConfig } from "../lib/site-config";
+---
+
+<header class="sticky top-0 z-20 backdrop-blur-xl bg-midnight/70 border-b border-white/5">
+  <div class="section-shell py-4 flex items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <div
+        class="h-10 w-10 rounded-xl bg-gradient-to-br from-aurora to-lavender flex items-center justify-center font-bold text-midnight shadow-glow"
+      >
+        LX
+      </div>
+      <div>
+        <p class="text-white font-semibold leading-none">{siteConfig.name}</p>
+        <p class="text-xs text-slate">Astro SaaS Theme</p>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate">
+      {
+        siteConfig.nav.map((item) => (
+          <a href={item.href} class="hover:text-white">
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="flex items-center gap-3">
+      <a class="button-ghost hidden sm:inline-flex" href={siteConfig.cta.secondary.href}>
+        {siteConfig.cta.secondary.label}
+      </a>
+      <a class="button-primary" href={siteConfig.cta.primary.href}>
+        {siteConfig.cta.primary.label}
+      </a>
+    </div>
+  </div>
+</header>

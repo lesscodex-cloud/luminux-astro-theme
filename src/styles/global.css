@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-midnight text-slate font-body antialiased min-h-screen;
+}
+
+a {
+  @apply text-aurora transition-colors duration-200;
+}
+
+a:hover {
+  @apply text-white;
+}
+
+.section-shell {
+  @apply mx-auto max-w-6xl px-6 py-16 sm:py-24;
+}
+
+.gradient-ring {
+  background: radial-gradient(120% 120% at 50% 10%, rgba(110, 243, 255, 0.08), transparent);
+}
+
+.card-surface {
+  @apply rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl shadow-glow;
+}
+
+.badge {
+  @apply inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-aurora;
+}
+
+.button-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-aurora to-lavender px-6 py-3 text-base font-semibold text-midnight shadow-glow transition-transform duration-200;
+}
+
+.button-primary:hover {
+  transform: translateY(-1px) scale(1.01);
+}
+
+.button-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3 text-base font-semibold text-white transition-all duration-200;
+}
+
+.button-ghost:hover {
+  @apply border-aurora/60 text-aurora;
+}
+
+.glass {
+  @apply bg-white/5 border border-white/10 backdrop-blur-lg;
+}
+
+.grid-fade {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(circle at center, black, transparent 70%);
+}
+
+.icon-circle {
+  @apply flex h-10 w-10 items-center justify-center rounded-full bg-aurora/10 text-aurora;
+}
+
+.feature-grid {
+  @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+.testimonial-card {
+  @apply card-surface p-6 flex flex-col gap-4;
+}

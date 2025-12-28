@@ -1,43 +1,42 @@
-# Astro Starter Kit: Minimal
+# Luminux — Astro SaaS Theme
 
-```sh
-npm create astro@latest -- --template minimal
+A production-ready Astro theme with TailwindCSS, TypeScript strict mode, ESLint, and Prettier. The layout ships with reusable blocks for SaaS-style landing pages and component-driven storytelling.
+
+## Features
+
+- Astro 5 with TypeScript strict configuration
+- TailwindCSS tokens tuned for a premium dark theme
+- ESLint (Flat config) + Prettier with Astro support
+- Ready-to-use sections: hero, features, showcase, pricing, testimonials, FAQ, and CTA
+- Developer scripts for linting, formatting, type-checking, and building
+
+## Project Structure
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
 ├── public/
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/
+│   ├── layouts/
+│   ├── lib/
+│   ├── pages/
+│   └── styles/
+├── astro.config.mjs
+├── eslint.config.js
+├── tailwind.config.mjs
+└── tsconfig.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Commands
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- `npm install` — install dependencies
+- `npm run dev` — start the dev server
+- `npm run build` — build for production
+- `npm run preview` — preview the production build
+- `npm run lint` — run ESLint on the project
+- `npm run typecheck` — run `astro check` for type safety
+- `npm run format` — format the codebase with Prettier
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Deployment
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Run `npm run build` and deploy the `dist` directory to your static host of choice (Vercel, Netlify, or similar).
