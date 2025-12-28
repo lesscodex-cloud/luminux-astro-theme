@@ -1,0 +1,28 @@
+---
+import { faqs } from "../lib/site-config";
+---
+
+<section class="section-shell" id="faq">
+  <div class="flex flex-col gap-3 mb-10">
+    <span class="badge w-fit">FAQ</span>
+    <h2 class="text-3xl sm:text-4xl font-display font-semibold text-white">
+      Answers for launch day
+    </h2>
+    <p class="text-slate max-w-2xl">
+      Everything you need to know to get Luminux ready for production.
+    </p>
+  </div>
+  <div class="space-y-4">
+    {
+      faqs.map((item) => (
+        <details class="card-surface p-5">
+          <summary class="text-lg font-semibold text-white cursor-pointer flex items-center justify-between">
+            <span>{item.question}</span>
+            <span class="text-aurora text-sm">▾</span>
+          </summary>
+          <p class="text-slate mt-3 text-sm leading-relaxed">{item.answer}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>

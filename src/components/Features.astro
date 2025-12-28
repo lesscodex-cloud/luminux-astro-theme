@@ -1,0 +1,27 @@
+---
+import { features } from "../lib/site-config";
+---
+
+<section class="section-shell" id="features">
+  <div class="flex flex-col gap-4 mb-10">
+    <span class="badge w-fit">Why teams pick Luminux</span>
+    <div class="flex flex-col gap-2">
+      <h2 class="text-3xl sm:text-4xl font-display font-semibold text-white">Production polish</h2>
+      <p class="text-slate max-w-3xl">
+        Every block is tuned for SaaS storytelling—hero, features, pricing, testimonials, and calls
+        to action.
+      </p>
+    </div>
+  </div>
+  <div class="feature-grid">
+    {
+      features.map((feature) => (
+        <article class="card-surface p-6 flex flex-col gap-3">
+          <div class="icon-circle text-lg">{feature.icon}</div>
+          <h3 class="text-xl font-semibold text-white">{feature.title}</h3>
+          <p class="text-sm text-slate leading-relaxed">{feature.description}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

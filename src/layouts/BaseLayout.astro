@@ -1,0 +1,31 @@
+---
+import "../styles/global.css";
+
+const {
+  title = "Luminux — Astro SaaS Theme",
+  description = "Launch a luminous product story with Astro, Tailwind, and TypeScript.",
+} = Astro.props as {
+  title?: string;
+  description?: string;
+};
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="gradient-ring">
+    <div class="relative min-h-screen">
+      <div
+        class="fixed inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-aurora/60 to-transparent"
+      >
+      </div>
+      <slot />
+    </div>
+  </body>
+</html>
