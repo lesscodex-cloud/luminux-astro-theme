@@ -3,17 +3,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CallToAction from "../components/CallToAction.astro";
 import FAQ from "../components/FAQ.astro";
 import Features from "../components/Features.astro";
-import Footer from "../components/Footer.astro";
 import Hero from "../components/Hero.astro";
-import NavBar from "../components/NavBar.astro";
 import Pricing from "../components/Pricing.astro";
 import Showcase from "../components/Showcase.astro";
 import Testimonials from "../components/Testimonials.astro";
 ---
 
 <BaseLayout>
-  <NavBar />
-  <main class="flex flex-col gap-8">
+  <div class="flex flex-col gap-8">
     <Hero />
     <Features />
     <Showcase />
@@ -21,6 +18,5 @@ import Testimonials from "../components/Testimonials.astro";
     <Testimonials />
     <FAQ />
     <CallToAction />
-  </main>
-  <Footer />
+  </div>
 </BaseLayout>

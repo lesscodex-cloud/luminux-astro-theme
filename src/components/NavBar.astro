@@ -3,8 +3,8 @@ import { siteConfig } from "../lib/site-config";
 ---
 
 <header class="sticky top-0 z-20 backdrop-blur-xl bg-midnight/70 border-b border-white/5">
-  <div class="section-shell py-4 flex items-center justify-between gap-6">
-    <div class="flex items-center gap-3">
+  <div class="section-shell py-4 flex items-center justify-between gap-4">
+    <a class="flex items-center gap-3" href="/">
       <div
         class="h-10 w-10 rounded-xl bg-gradient-to-br from-aurora to-lavender flex items-center justify-center font-bold text-midnight shadow-glow"
       >
@@ -14,8 +14,8 @@ import { siteConfig } from "../lib/site-config";
         <p class="text-white font-semibold leading-none">{siteConfig.name}</p>
         <p class="text-xs text-slate">Astro SaaS Theme</p>
       </div>
-    </div>
-    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate">
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate" aria-label="Primary">
       {
         siteConfig.nav.map((item) => (
           <a href={item.href} class="hover:text-white">
@@ -28,9 +28,65 @@ import { siteConfig } from "../lib/site-config";
       <a class="button-ghost hidden sm:inline-flex" href={siteConfig.cta.secondary.href}>
         {siteConfig.cta.secondary.label}
       </a>
-      <a class="button-primary" href={siteConfig.cta.primary.href}>
+      <a class="button-primary hidden md:inline-flex" href={siteConfig.cta.primary.href}>
         {siteConfig.cta.primary.label}
       </a>
+      <button
+        type="button"
+        class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white"
+        aria-controls="mobile-menu"
+        data-menu-toggle
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14" />
+        </svg>
+      </button>
     </div>
   </div>
+  <div id="mobile-menu" class="md:hidden" data-mobile-menu data-open="false">
+    <div class="section-shell pt-0 pb-6 flex flex-col gap-4 border-t border-white/5 bg-midnight/80">
+      <nav class="flex flex-col gap-3 text-sm font-medium text-slate" aria-label="Mobile">
+        {
+          siteConfig.nav.map((item) => (
+            <a href={item.href} class="rounded-lg px-3 py-2 hover:bg-white/5">
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="flex flex-wrap items-center gap-3">
+        <a class="button-ghost flex-1 justify-center" href={siteConfig.cta.secondary.href}>
+          {siteConfig.cta.secondary.label}
+        </a>
+        <a class="button-primary flex-1 justify-center" href={siteConfig.cta.primary.href}>
+          {siteConfig.cta.primary.label}
+        </a>
+      </div>
+    </div>
+  </div>
+  <script>
+    const menu = document.querySelector('[data-mobile-menu]');
+    const toggle = document.querySelector('[data-menu-toggle]');
+
+    if (menu && toggle) {
+      const setOpen = (nextOpen) => {
+        menu.dataset.open = String(nextOpen);
+        toggle.setAttribute('aria-expanded', String(nextOpen));
+        menu.classList.toggle('hidden', !nextOpen);
+      };
+
+      setOpen(false);
+
+      toggle.addEventListener('click', () => {
+        const nextOpen = menu.dataset.open !== 'true';
+        setOpen(nextOpen);
+      });
+
+      menu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setOpen(false));
+      });
+    }
+  </script>
 </header>
