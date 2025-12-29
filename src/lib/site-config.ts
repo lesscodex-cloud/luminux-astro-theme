@@ -4,14 +4,14 @@ export const siteConfig = {
   description:
     "Luminux helps SaaS teams launch faster with polished UI blocks, dark-mode aesthetics, and fully typed Astro components.",
   nav: [
-    { label: "Features", href: "#features" },
-    { label: "Showcase", href: "#showcase" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Home", href: "/" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Blog", href: "/blog" },
+    { label: "Styleguide", href: "/styleguide" },
   ],
   cta: {
-    primary: { label: "Launch with Luminux", href: "#pricing" },
-    secondary: { label: "View components", href: "#features" },
+    primary: { label: "Launch with Luminux", href: "/pricing" },
+    secondary: { label: "View components", href: "/styleguide" },
   },
   highlights: [
     "TypeScript-first components",

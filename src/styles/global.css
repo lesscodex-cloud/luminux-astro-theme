@@ -12,6 +12,10 @@ body {
   @apply bg-midnight text-slate font-body antialiased min-h-screen;
 }
 
+.skip-link {
+  @apply sr-only focus:not-sr-only fixed left-6 top-4 z-50 rounded-full bg-white px-4 py-2 font-semibold text-midnight shadow-glow;
+}
+
 a {
   @apply text-aurora transition-colors duration-200;
 }

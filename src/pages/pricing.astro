@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Pricing — Luminux" description="Choose the right Luminux plan for your launch timeline.">
+  <section class="section-shell flex flex-col gap-6">
+    <span class="badge w-fit">Pricing</span>
+    <h1 class="font-display text-4xl font-semibold text-white">Plans for every launch</h1>
+    <p class="text-lg text-slate max-w-3xl">
+      Luminux keeps pricing transparent so you can focus on shipping. Pick a plan and swap whenever you need.
+    </p>
+    <div class="grid gap-4 md:grid-cols-3">
+      {["Starter", "Growth", "Enterprise"].map((name) => (
+        <div class="card-surface p-6 flex flex-col gap-3" aria-label={`${name} plan`}>
+          <h2 class="text-xl font-semibold text-white">{name}</h2>
+          <p class="text-slate">Clean placeholder copy that you can replace with real pricing details.</p>
+          <a class="button-primary justify-center" href="#">Choose {name}</a>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

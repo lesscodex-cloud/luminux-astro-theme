@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Styleguide — Luminux" description="Preview the foundational styles used across the Luminux theme.">
+  <section class="section-shell flex flex-col gap-6">
+    <span class="badge w-fit">Styleguide</span>
+    <h1 class="font-display text-4xl font-semibold text-white">Design tokens in action</h1>
+    <p class="text-lg text-slate max-w-3xl">
+      Use this page to house typography, color, and component guidelines. Everything here is placeholder copy you can tailor.
+    </p>
+    <div class="card-surface p-6 flex flex-col gap-4">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-semibold text-white">Typography</h2>
+        <p class="text-slate">Headings, paragraphs, and inline links share consistent spacing and tone.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <a class="button-primary" href="#">Primary action</a>
+        <a class="button-ghost" href="#">Ghost action</a>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {["Aurora", "Lavender", "Midnight", "Slate"].map((token) => (
+          <div class="glass rounded-xl p-4">
+            <p class="text-sm text-slate">Color token</p>
+            <p class="text-lg font-semibold text-white">{token}</p>
+            <p class="text-slate">Swap this with your brand palette callouts.</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

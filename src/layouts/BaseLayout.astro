@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
 
 const {
   title = "Luminux — Astro SaaS Theme",
@@ -20,12 +22,16 @@ const {
     <title>{title}</title>
   </head>
   <body class="gradient-ring">
-    <div class="relative min-h-screen">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="relative min-h-screen flex flex-col">
       <div
         class="fixed inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-aurora/60 to-transparent"
-      >
-      </div>
-      <slot />
+      ></div>
+      <NavBar />
+      <main id="main-content" class="flex-1 flex flex-col">
+        <slot />
+      </main>
+      <Footer />
     </div>
   </body>
 </html>
