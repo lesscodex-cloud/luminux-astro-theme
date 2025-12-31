@@ -1,23 +1,71 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getSortedPosts, getTotalPages, paginatePosts } from "../lib/posts";
+
+const posts = await getSortedPosts();
+const totalPages = getTotalPages(posts);
+const pagePosts = paginatePosts(posts, 1);
 ---
 
 <BaseLayout title="Blog — Luminux" description="Read the latest updates from the Luminux team.">
-  <section class="section-shell flex flex-col gap-6">
-    <span class="badge w-fit">Blog</span>
-    <h1 class="font-display text-4xl font-semibold text-white">Notes from the build log</h1>
-    <p class="text-lg text-slate max-w-2xl">
-      Keep this page as a placeholder until you are ready to publish product updates, tutorials, and release notes.
-    </p>
+  <section class="section-shell flex flex-col gap-8">
+    <div class="flex flex-col gap-4">
+      <span class="badge w-fit">Blog</span>
+      <h1 class="font-display text-4xl font-semibold text-white">Notes from the build log</h1>
+      <p class="text-lg text-slate max-w-2xl">
+        Fresh release notes, tutorials, and product ideas from the Luminux crew.
+      </p>
+    </div>
+
     <div class="grid gap-4 md:grid-cols-2">
-      {[1, 2, 3, 4].map((post) => (
-        <article class="card-surface p-6 flex flex-col gap-3" aria-label={`Placeholder post ${post}`}>
-          <p class="text-xs uppercase tracking-wide text-aurora">Category</p>
-          <h2 class="text-xl font-semibold text-white">Post headline {post}</h2>
-          <p class="text-slate">Swap this copy with a short summary that invites visitors to read more.</p>
-          <a class="button-ghost w-fit" href="#">Read post</a>
+      {pagePosts.map((post) => (
+        <article class="card-surface p-6 flex flex-col gap-3" aria-label={post.data.title}>
+          <p class="text-xs uppercase tracking-[0.2em] text-aurora">
+            {post.data.pubDate.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </p>
+          <a class="text-xl font-semibold text-white" href={`/blog/${post.slug}`}>
+            {post.data.title}
+          </a>
+          <p class="text-slate">{post.data.description}</p>
+          <div class="flex flex-wrap gap-2">
+            {post.data.tags.map((tag) => (
+              <span class="badge">{tag}</span>
+            ))}
+          </div>
+          <a class="button-ghost w-fit" href={`/blog/${post.slug}`}>
+            Read post
+          </a>
         </article>
       ))}
     </div>
+
+    {totalPages > 1 && (
+      <nav class="flex flex-col gap-3" aria-label="Blog pagination">
+        <p class="text-slate text-sm">Page 1 of {totalPages}</p>
+        <div class="flex flex-wrap gap-2">
+          {[...Array(totalPages)].map((_, index) => {
+            const pageNumber = index + 1;
+            const href = pageNumber === 1 ? "/blog" : `/blog/page/${pageNumber}`;
+
+            return (
+              <a
+                class={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
+                  pageNumber === 1
+                    ? "bg-aurora text-midnight border-aurora"
+                    : "border-white/20 text-white hover:border-aurora/60 hover:text-aurora"
+                }`}
+                href={href}
+              >
+                {pageNumber}
+              </a>
+            );
+          })}
+        </div>
+      </nav>
+    )}
   </section>
 </BaseLayout>

@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getSortedPosts } from "../../lib/posts";
+import type { CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getSortedPosts();
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as { post: CollectionEntry<"blog"> };
+const { Content } = await post.render();
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+---
+
+<BaseLayout title={`${post.data.title} — Luminux`} description={post.data.description}>
+  <article class="section-shell flex flex-col gap-8">
+    <header class="flex flex-col gap-4">
+      <span class="badge w-fit">Blog</span>
+      <div class="flex flex-col gap-2">
+        <h1 class="font-display text-4xl font-semibold text-white">{post.data.title}</h1>
+        <p class="text-lg text-slate max-w-3xl">{post.data.description}</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 text-sm text-slate">
+        <time dateTime={post.data.pubDate.toISOString()}>Published {formatDate(post.data.pubDate)}</time>
+        {post.data.updatedDate && (
+          <span aria-label="Last updated">• Updated {formatDate(post.data.updatedDate)}</span>
+        )}
+        {post.data.author && <span aria-label="Author">• By {post.data.author}</span>}
+      </div>
+      <div class="flex flex-wrap gap-2">
+        {post.data.tags.map((tag) => (
+          <span class="badge">{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    <div class="card-surface p-6 md:p-10 flex flex-col gap-6 text-slate">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
