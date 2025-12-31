@@ -1,0 +1,15 @@
+---
+const { title, eyebrow, description, actions } = Astro.props;
+---
+
+<article class="card-surface p-6 flex flex-col gap-4" role="group">
+  {(eyebrow || title) && (
+    <header class="flex flex-col gap-2">
+      {eyebrow && <p class="text-xs uppercase tracking-[0.2em] text-aurora">{eyebrow}</p>}
+      {title && <h3 class="text-xl font-semibold text-white">{title}</h3>}
+    </header>
+  )}
+  {description && <p class="text-slate">{description}</p>}
+  <slot />
+  {actions && <div class="flex flex-wrap gap-2">{actions}</div>}
+</article>
