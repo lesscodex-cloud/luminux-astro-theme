@@ -1,0 +1,17 @@
+---
+const { label, tone = "default" } = Astro.props;
+
+const variants = {
+  default: "bg-white/10 text-aurora",
+  positive: "bg-aurora/10 text-aurora",
+  neutral: "bg-white/10 text-white",
+};
+---
+
+<span
+  class={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${variants[tone]}`}
+  aria-label={label}
+>
+  <slot name="icon" />
+  {label}
+</span>

@@ -1,0 +1,34 @@
+---
+const {
+  variant = "primary",
+  href,
+  label,
+  icon,
+  type = "button",
+  ariaLabel,
+} = Astro.props;
+
+const baseClasses =
+  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aurora";
+
+const variants = {
+  primary: "bg-gradient-to-r from-aurora to-lavender text-midnight shadow-glow hover:translate-y-[-1px] hover:scale-[1.01]",
+  secondary: "bg-white/10 text-white border border-white/15 hover:border-aurora/60 hover:text-aurora",
+  ghost: "text-white border border-transparent hover:border-white/20 hover:bg-white/5",
+};
+
+const Tag = href ? "a" : "button";
+const role = href ? "button" : undefined;
+const computedLabel = ariaLabel || label;
+---
+
+<Tag
+  class={`${baseClasses} ${variants[variant]}`}
+  href={href}
+  type={!href ? type : undefined}
+  aria-label={computedLabel}
+  role={role}
+>
+  {icon && <span class="text-lg" aria-hidden="true">{icon}</span>}
+  <span>{label}</span>
+</Tag>

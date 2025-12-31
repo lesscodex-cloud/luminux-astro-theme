@@ -1,0 +1,8 @@
+---
+const { as = "section", padded = true, id } = Astro.props;
+const Tag = as;
+---
+
+<Tag id={id} class={`${padded ? "px-6 py-16 sm:py-24" : "px-6"} mx-auto w-full max-w-6xl`}>
+  <slot />
+</Tag>
