@@ -1,0 +1,40 @@
+---
+import {
+  absoluteImageUrl,
+  formatCanonical,
+  formatDescription,
+  formatTitle,
+  seoDefaults,
+  type SeoProps,
+} from "../lib/seo";
+
+const props = Astro.props as SeoProps;
+
+const title = formatTitle(props.title);
+const description = formatDescription(props.description);
+const canonical = formatCanonical(Astro.site, props.canonical, Astro.url?.pathname);
+const imageUrl = absoluteImageUrl(Astro.site, props.ogImage);
+const jsonLd = props.jsonLd ? JSON.stringify(props.jsonLd, null, 2) : null;
+const ogType = props.ogType ?? seoDefaults.ogType;
+const twitterCard = props.twitterCard ?? seoDefaults.twitterCard;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+{canonical && <link rel="canonical" href={canonical} />}
+{props.noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}
+<meta property="og:site_name" content={seoDefaults.siteName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={ogType} />
+{canonical && <meta property="og:url" content={canonical} />}
+{imageUrl && <meta property="og:image" content={imageUrl} />}
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{imageUrl && <meta name="twitter:image" content={imageUrl} />}
+{jsonLd && <script type="application/ld+json">{jsonLd}</script>}
+<slot name="extra" />
