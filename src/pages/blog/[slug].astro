@@ -17,9 +17,36 @@ const { Content } = await post.render();
 
 const formatDate = (date: Date) =>
   date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+
+const canonicalUrl = Astro.site
+  ? new URL(`/blog/${post.slug}/`, Astro.site).toString()
+  : `/blog/${post.slug}/`;
 ---
 
-<BaseLayout title={`${post.data.title} — Luminux`} description={post.data.description}>
+<BaseLayout
+  seo={{
+    title: post.data.title,
+    description: post.data.description,
+    canonical: canonicalUrl,
+    ogType: "article",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.data.title,
+      description: post.data.description,
+      datePublished: post.data.pubDate.toISOString(),
+      dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+      author: post.data.author
+        ? {
+            "@type": "Person",
+            name: post.data.author,
+          }
+        : undefined,
+      url: canonicalUrl,
+      mainEntityOfPage: canonicalUrl,
+    },
+  }}
+>
   <article class="section-shell flex flex-col gap-8">
     <header class="flex flex-col gap-4">
       <span class="badge w-fit">Blog</span>

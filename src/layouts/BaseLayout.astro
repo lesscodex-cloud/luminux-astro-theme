@@ -1,25 +1,27 @@
 ---
 import "../styles/global.css";
+import Seo from "../components/Seo.astro";
 import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
+import type { SeoProps } from "../lib/seo";
 
-const {
-  title = "Luminux — Astro SaaS Theme",
-  description = "Launch a luminous product story with Astro, Tailwind, and TypeScript.",
-} = Astro.props as {
+const { seo = {}, title, description } = Astro.props as {
+  seo?: SeoProps;
   title?: string;
   description?: string;
+};
+
+const mergedSeo: SeoProps = {
+  title,
+  description,
+  ...seo,
 };
 ---
 
 <!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
+    <Seo {...mergedSeo} />
   </head>
   <body class="gradient-ring">
     <a class="skip-link" href="#main-content">Skip to main content</a>

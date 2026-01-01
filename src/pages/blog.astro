@@ -7,7 +7,13 @@ const totalPages = getTotalPages(posts);
 const pagePosts = paginatePosts(posts, 1);
 ---
 
-<BaseLayout title="Blog — Luminux" description="Read the latest updates from the Luminux team.">
+<BaseLayout
+  seo={{
+    title: "Blog",
+    description: "Read the latest updates from the Luminux team.",
+    canonical: "/blog/",
+  }}
+>
   <section class="section-shell flex flex-col gap-8">
     <div class="flex flex-col gap-4">
       <span class="badge w-fit">Blog</span>
