@@ -93,7 +93,7 @@ a:hover {
 }
 
 .button-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-aurora to-lavender px-6 py-3 text-base font-semibold text-on-accent shadow-glow transition-transform duration-200;
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-aurora to-lavender px-6 py-3 text-base font-semibold text-on-accent shadow-glow transition-transform duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aurora/80;
 }
 
 .button-primary:hover {
@@ -101,15 +101,11 @@ a:hover {
 }
 
 .button-ghost {
-  @apply inline-flex items-center justify-center gap-2 rounded-full border border-border/50 px-6 py-3 text-base font-semibold text-foreground transition-all duration-200;
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-border/50 px-6 py-3 text-base font-semibold text-foreground transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aurora/80;
 }
 
 .button-ghost:hover {
   @apply border-aurora/60 text-aurora;
-}
-
-.glass {
-  @apply bg-surface/60 border border-border/40 backdrop-blur-lg;
 }
 
 .grid-fade {

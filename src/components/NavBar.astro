@@ -4,7 +4,7 @@ import { siteConfig } from "../lib/site-config";
 
 <header class="sticky top-0 z-20 backdrop-blur-xl bg-background/70 border-b border-border/20">
   <div class="section-shell py-4 flex items-center justify-between gap-4">
-    <a class="flex items-center gap-3" href="/">
+    <a class="flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aurora/70" href="/">
       <div
         class="h-10 w-10 rounded-xl bg-gradient-to-br from-aurora to-lavender flex items-center justify-center font-bold text-on-accent shadow-glow"
       >
@@ -18,7 +18,10 @@ import { siteConfig } from "../lib/site-config";
     <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-muted" aria-label="Primary">
       {
         siteConfig.nav.map((item) => (
-          <a href={item.href} class="hover:text-foreground">
+          <a
+            href={item.href}
+            class="hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aurora/70"
+          >
             {item.label}
           </a>
         ))
@@ -53,6 +56,7 @@ import { siteConfig } from "../lib/site-config";
         aria-controls="mobile-menu"
         data-menu-toggle
         aria-expanded="false"
+        aria-haspopup="true"
       >
         <span class="sr-only">Toggle navigation</span>
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
@@ -61,12 +65,15 @@ import { siteConfig } from "../lib/site-config";
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="md:hidden" data-mobile-menu data-open="false">
+  <div id="mobile-menu" class="md:hidden" data-mobile-menu data-open="false" hidden aria-hidden="true">
     <div class="section-shell pt-0 pb-6 flex flex-col gap-4 border-t border-border/20 bg-background/80">
       <nav class="flex flex-col gap-3 text-sm font-medium text-muted" aria-label="Mobile">
         {
           siteConfig.nav.map((item) => (
-            <a href={item.href} class="rounded-lg px-3 py-2 hover:bg-surface/70">
+            <a
+              href={item.href}
+              class="rounded-lg px-3 py-2 hover:bg-surface/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aurora/70"
+            >
               {item.label}
             </a>
           ))
@@ -86,6 +93,17 @@ import { siteConfig } from "../lib/site-config";
     const menu = document.querySelector('[data-mobile-menu]');
     const toggle = document.querySelector('[data-menu-toggle]');
     const themeToggle = document.querySelector('[data-theme-toggle]');
+    const focusableSelectors = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+    ];
+
+    let lastFocusedElement = null;
+    let setOpen;
 
     const setThemeIcon = (mode) => {
       const iconWrapper = themeToggle?.querySelector('[data-theme-icon="light"]');
@@ -95,11 +113,66 @@ import { siteConfig } from "../lib/site-config";
       themeToggle?.setAttribute('aria-pressed', mode === 'dark');
     };
 
+    const getFocusableElements = () => {
+      const elements = menu ? Array.from(menu.querySelectorAll(focusableSelectors.join(','))) : [];
+      if (toggle) elements.push(toggle);
+      return elements.filter((element) => element instanceof HTMLElement && !element.hasAttribute('hidden'));
+    };
+
+    const handleKeydown = (event) => {
+      if (!menu || !setOpen || menu.dataset.open !== 'true') return;
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setOpen(false);
+        toggle?.focus();
+        return;
+      }
+
+      if (event.key === 'Tab') {
+        const focusable = getFocusableElements();
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey) {
+          if (document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          }
+        } else if (document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
     if (menu && toggle) {
-      const setOpen = (nextOpen) => {
+      setOpen = (nextOpen) => {
         menu.dataset.open = String(nextOpen);
         toggle.setAttribute('aria-expanded', String(nextOpen));
-        menu.classList.toggle('hidden', !nextOpen);
+        menu.hidden = !nextOpen;
+        menu.setAttribute('aria-hidden', String(!nextOpen));
+
+        if (nextOpen) {
+          lastFocusedElement = document.activeElement;
+          document.addEventListener('keydown', handleKeydown);
+
+          requestAnimationFrame(() => {
+            const firstLink = menu.querySelector('a, button');
+            if (firstLink instanceof HTMLElement) {
+              firstLink.focus();
+            } else {
+              toggle.focus();
+            }
+          });
+        } else {
+          document.removeEventListener('keydown', handleKeydown);
+          if (lastFocusedElement instanceof HTMLElement) {
+            lastFocusedElement.focus();
+          }
+        }
       };
 
       setOpen(false);
