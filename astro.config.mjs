@@ -2,8 +2,10 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 
+const site = process.env.ASTRO_SITE ?? "https://luminux.example.com";
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://luminux.example.com",
+  site,
   integrations: [tailwind({ applyBaseStyles: false })],
 });
