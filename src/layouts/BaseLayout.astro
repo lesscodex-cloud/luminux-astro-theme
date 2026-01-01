@@ -22,6 +22,55 @@ const mergedSeo: SeoProps = {
 <html lang="en" class="scroll-smooth">
   <head>
     <Seo {...mergedSeo} />
+    <script is:inline>
+      (() => {
+        const getStored = () => {
+          try {
+            return localStorage.getItem('theme');
+          } catch (error) {
+            return null;
+          }
+        };
+
+        const getPreferred = () => {
+          const stored = getStored();
+          if (stored === 'light' || stored === 'dark') return stored;
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+
+        const applyTheme = (theme) => {
+          const root = document.documentElement;
+          root.classList.toggle('dark', theme === 'dark');
+          root.dataset.theme = theme;
+          root.style.colorScheme = theme;
+        };
+
+        const setTheme = (theme) => {
+          applyTheme(theme);
+          try {
+            localStorage.setItem('theme', theme);
+          } catch (error) {
+            // Ignore persistence failures
+          }
+        };
+
+        const syncMediaPreference = (event) => {
+          if (getStored()) return;
+          applyTheme(event.matches ? 'dark' : 'light');
+        };
+
+        const initialTheme = getPreferred();
+        applyTheme(initialTheme);
+
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
+        media.addEventListener('change', syncMediaPreference);
+
+        window.__luminuxTheme = {
+          set: setTheme,
+          toggle: () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'),
+        };
+      })();
+    </script>
   </head>
   <body class="gradient-ring">
     <a class="skip-link" href="#main-content">Skip to main content</a>

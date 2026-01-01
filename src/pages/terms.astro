@@ -5,15 +5,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout title="Terms — Luminux" description="Review the placeholder terms for the Luminux theme.">
   <section class="section-shell flex flex-col gap-6">
     <span class="badge w-fit">Terms</span>
-    <h1 class="font-display text-4xl font-semibold text-white">Simple terms outline</h1>
-    <p class="text-lg text-slate max-w-3xl">
+    <h1 class="font-display text-4xl font-semibold text-foreground">Simple terms outline</h1>
+    <p class="text-lg text-muted max-w-3xl">
       Swap these sections with your licensing, usage, and support expectations so customers stay informed.
     </p>
-    <div class="card-surface p-6 flex flex-col gap-4 text-slate leading-relaxed">
+    <div class="card-surface p-6 flex flex-col gap-4 text-muted leading-relaxed">
       {["Acceptable use", "Refunds", "Support"]
         .map((section) => (
           <div>
-            <h2 class="text-lg font-semibold text-white">{section}</h2>
+            <h2 class="text-lg font-semibold text-foreground">{section}</h2>
             <p>Concise placeholder language that you can replace with your official terms.</p>
           </div>
         ))}

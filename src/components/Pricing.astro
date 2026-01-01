@@ -5,10 +5,10 @@ import { pricing } from "../lib/site-config";
 <section class="section-shell" id="pricing">
   <div class="flex flex-col gap-3 mb-10">
     <span class="badge w-fit">Pricing</span>
-    <h2 class="text-3xl sm:text-4xl font-display font-semibold text-white">
+    <h2 class="text-3xl sm:text-4xl font-display font-semibold text-foreground">
       Pick your launch plan
     </h2>
-    <p class="text-slate max-w-2xl">
+    <p class="text-muted max-w-2xl">
       Straightforward pricing for teams of all sizes. Upgrade any time when you need more support.
     </p>
   </div>
@@ -19,12 +19,12 @@ import { pricing } from "../lib/site-config";
           class={`card-surface p-6 flex flex-col gap-4 ${tier.highlighted ? "border-aurora/50 shadow-glow" : ""}`}
         >
           <div class="flex items-center justify-between">
-            <h3 class="text-xl font-semibold text-white">{tier.name}</h3>
+            <h3 class="text-xl font-semibold text-foreground">{tier.name}</h3>
             {tier.highlighted && <span class="badge">Popular</span>}
           </div>
-          <p class="text-3xl font-semibold text-white">{tier.price}</p>
-          <p class="text-slate text-sm">{tier.description}</p>
-          <ul class="flex flex-col gap-2 text-sm text-slate">
+          <p class="text-3xl font-semibold text-foreground">{tier.price}</p>
+          <p class="text-muted text-sm">{tier.description}</p>
+          <ul class="flex flex-col gap-2 text-sm text-muted">
             {tier.features.map((feature) => (
               <li class="flex items-center gap-2">
                 <span class="text-aurora">•</span>
