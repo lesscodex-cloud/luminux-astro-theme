@@ -17,8 +17,8 @@ const pagePosts = paginatePosts(posts, 1);
   <section class="section-shell flex flex-col gap-8">
     <div class="flex flex-col gap-4">
       <span class="badge w-fit">Blog</span>
-      <h1 class="font-display text-4xl font-semibold text-white">Notes from the build log</h1>
-      <p class="text-lg text-slate max-w-2xl">
+      <h1 class="font-display text-4xl font-semibold text-foreground">Notes from the build log</h1>
+      <p class="text-lg text-muted max-w-2xl">
         Fresh release notes, tutorials, and product ideas from the Luminux crew.
       </p>
     </div>
@@ -33,10 +33,10 @@ const pagePosts = paginatePosts(posts, 1);
               year: "numeric",
             })}
           </p>
-          <a class="text-xl font-semibold text-white" href={`/blog/${post.slug}`}>
+          <a class="text-xl font-semibold text-foreground" href={`/blog/${post.slug}`}>
             {post.data.title}
           </a>
-          <p class="text-slate">{post.data.description}</p>
+          <p class="text-muted">{post.data.description}</p>
           <div class="flex flex-wrap gap-2">
             {post.data.tags.map((tag) => (
               <span class="badge">{tag}</span>
@@ -51,7 +51,7 @@ const pagePosts = paginatePosts(posts, 1);
 
     {totalPages > 1 && (
       <nav class="flex flex-col gap-3" aria-label="Blog pagination">
-        <p class="text-slate text-sm">Page 1 of {totalPages}</p>
+        <p class="text-muted text-sm">Page 1 of {totalPages}</p>
         <div class="flex flex-wrap gap-2">
           {[...Array(totalPages)].map((_, index) => {
             const pageNumber = index + 1;
@@ -61,8 +61,8 @@ const pagePosts = paginatePosts(posts, 1);
               <a
                 class={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
                   pageNumber === 1
-                    ? "bg-aurora text-midnight border-aurora"
-                    : "border-white/20 text-white hover:border-aurora/60 hover:text-aurora"
+                    ? "bg-aurora text-on-accent border-aurora"
+                    : "border-border/40 text-foreground hover:border-aurora/60 hover:text-aurora"
                 }`}
                 href={href}
               >

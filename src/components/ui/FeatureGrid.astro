@@ -16,8 +16,8 @@ const { features = [] }: { features: Feature[] } = Astro.props;
           {feature.icon}
         </span>
       )}
-      <h3 class="text-lg font-semibold text-white">{feature.title}</h3>
-      <p class="text-slate text-sm leading-relaxed">{feature.description}</p>
+      <h3 class="text-lg font-semibold text-foreground">{feature.title}</h3>
+      <p class="text-muted text-sm leading-relaxed">{feature.description}</p>
     </div>
   ))}
 </div>

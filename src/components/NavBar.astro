@@ -2,29 +2,45 @@
 import { siteConfig } from "../lib/site-config";
 ---
 
-<header class="sticky top-0 z-20 backdrop-blur-xl bg-midnight/70 border-b border-white/5">
+<header class="sticky top-0 z-20 backdrop-blur-xl bg-background/70 border-b border-border/20">
   <div class="section-shell py-4 flex items-center justify-between gap-4">
     <a class="flex items-center gap-3" href="/">
       <div
-        class="h-10 w-10 rounded-xl bg-gradient-to-br from-aurora to-lavender flex items-center justify-center font-bold text-midnight shadow-glow"
+        class="h-10 w-10 rounded-xl bg-gradient-to-br from-aurora to-lavender flex items-center justify-center font-bold text-on-accent shadow-glow"
       >
         LX
       </div>
       <div>
-        <p class="text-white font-semibold leading-none">{siteConfig.name}</p>
-        <p class="text-xs text-slate">Astro SaaS Theme</p>
+        <p class="text-foreground font-semibold leading-none">{siteConfig.name}</p>
+        <p class="text-xs text-muted">Astro SaaS Theme</p>
       </div>
     </a>
-    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate" aria-label="Primary">
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-muted" aria-label="Primary">
       {
         siteConfig.nav.map((item) => (
-          <a href={item.href} class="hover:text-white">
+          <a href={item.href} class="hover:text-foreground">
             {item.label}
           </a>
         ))
       }
     </nav>
     <div class="flex items-center gap-3">
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/40 bg-surface/70 text-foreground transition-colors hover:border-aurora/60 hover:text-aurora"
+        data-theme-toggle
+        aria-label="Toggle color scheme"
+      >
+        <span aria-hidden="true" class="[&>svg[data-icon='sun']]:block [&>svg[data-icon='moon']]:hidden" data-theme-icon="light">
+          <svg data-icon="sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="12" cy="12" r="4" />
+            <path stroke-linecap="round" d="M12 2v2m0 16v2m10-10h-2M4 12H2m16.95 6.95-1.41-1.41M6.46 6.46 5.05 5.05m13.49 0-1.41 1.41M6.46 17.54 5.05 18.95" />
+          </svg>
+          <svg data-icon="moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79Z" />
+          </svg>
+        </span>
+      </button>
       <a class="button-ghost hidden sm:inline-flex" href={siteConfig.cta.secondary.href}>
         {siteConfig.cta.secondary.label}
       </a>
@@ -33,7 +49,7 @@ import { siteConfig } from "../lib/site-config";
       </a>
       <button
         type="button"
-        class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white"
+        class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border/30 bg-surface/70 text-foreground"
         aria-controls="mobile-menu"
         data-menu-toggle
         aria-expanded="false"
@@ -46,11 +62,11 @@ import { siteConfig } from "../lib/site-config";
     </div>
   </div>
   <div id="mobile-menu" class="md:hidden" data-mobile-menu data-open="false">
-    <div class="section-shell pt-0 pb-6 flex flex-col gap-4 border-t border-white/5 bg-midnight/80">
-      <nav class="flex flex-col gap-3 text-sm font-medium text-slate" aria-label="Mobile">
+    <div class="section-shell pt-0 pb-6 flex flex-col gap-4 border-t border-border/20 bg-background/80">
+      <nav class="flex flex-col gap-3 text-sm font-medium text-muted" aria-label="Mobile">
         {
           siteConfig.nav.map((item) => (
-            <a href={item.href} class="rounded-lg px-3 py-2 hover:bg-white/5">
+            <a href={item.href} class="rounded-lg px-3 py-2 hover:bg-surface/70">
               {item.label}
             </a>
           ))
@@ -69,6 +85,15 @@ import { siteConfig } from "../lib/site-config";
   <script>
     const menu = document.querySelector('[data-mobile-menu]');
     const toggle = document.querySelector('[data-menu-toggle]');
+    const themeToggle = document.querySelector('[data-theme-toggle]');
+
+    const setThemeIcon = (mode) => {
+      const iconWrapper = themeToggle?.querySelector('[data-theme-icon="light"]');
+      if (!iconWrapper) return;
+      iconWrapper.querySelector('[data-icon="sun"]')?.classList.toggle('hidden', mode === 'dark');
+      iconWrapper.querySelector('[data-icon="moon"]')?.classList.toggle('hidden', mode !== 'dark');
+      themeToggle?.setAttribute('aria-pressed', mode === 'dark');
+    };
 
     if (menu && toggle) {
       const setOpen = (nextOpen) => {
@@ -88,5 +113,17 @@ import { siteConfig } from "../lib/site-config";
         link.addEventListener('click', () => setOpen(false));
       });
     }
+
+    const syncThemeState = () => {
+      const currentTheme = document.documentElement.dataset.theme || 'light';
+      setThemeIcon(currentTheme);
+    };
+
+    syncThemeState();
+
+    themeToggle?.addEventListener('click', () => {
+      window.__luminuxTheme?.toggle();
+      syncThemeState();
+    });
   </script>
 </header>

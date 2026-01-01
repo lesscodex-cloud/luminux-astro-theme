@@ -5,14 +5,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout title="Privacy — Luminux" description="Understand how Luminux handles your data.">
   <section class="section-shell flex flex-col gap-6">
     <span class="badge w-fit">Privacy</span>
-    <h1 class="font-display text-4xl font-semibold text-white">Privacy placeholder</h1>
-    <p class="text-lg text-slate max-w-3xl">
+    <h1 class="font-display text-4xl font-semibold text-foreground">Privacy placeholder</h1>
+    <p class="text-lg text-muted max-w-3xl">
       Outline your data practices, retention windows, and contact channels. The structure is ready for your policy text.
     </p>
-    <div class="card-surface p-6 flex flex-col gap-3 text-slate leading-relaxed">
+    <div class="card-surface p-6 flex flex-col gap-3 text-muted leading-relaxed">
       {["Information collection", "Data usage", "Contact"]
         .map((section) => (
-          <p><span class="text-white font-semibold">{section}:</span> Replace this with clear, human-friendly language.</p>
+          <p><span class="text-foreground font-semibold">{section}:</span> Replace this with clear, human-friendly language.</p>
         ))}
     </div>
   </section>
