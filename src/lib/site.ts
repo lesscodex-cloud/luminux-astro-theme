@@ -1,5 +1,6 @@
 export const siteConfig = {
   name: "Luminux",
+  url: "https://luminux.example.com",
   tagline: "An elegant Astro theme for luminous product launches.",
   description:
     "Luminux helps SaaS teams launch faster with polished UI blocks, dark-mode aesthetics, and fully typed Astro components.",
@@ -9,6 +10,11 @@ export const siteConfig = {
     { label: "Blog", href: "/blog" },
     { label: "Styleguide", href: "/styleguide" },
   ],
+  socials: {
+    x: "https://x.com/luminux",
+    github: "https://github.com/example/luminux",
+    email: "hello@luminux.example.com",
+  },
   cta: {
     primary: { label: "Launch with Luminux", href: "/pricing" },
     secondary: { label: "View components", href: "/styleguide" },
